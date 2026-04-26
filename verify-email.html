@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification | USDT Mine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-screen">
+    <div class="page-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <main class="container">
+        <div class="card-panel" style="max-width: 500px; margin: 100px auto; text-align: center;">
+          <h1>Verifying your email...</h1>
+          <p style="margin: 20px 0; color: #666;">Please wait while we verify your email address.</p>
+          <p id="status-message" style="margin-top: 20px; font-size: 14px;"></p>
+          <div style="margin-top: 30px;">
+            <a href="login.html" class="btn btn-primary">Back to Login</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import { supabase } from "./supabase-client.js";
+
+      const statusMessage = document.getElementById("status-message");
+
+      async function verifyEmail() {
+        try {
+          const hash = window.location.hash;
+
+          if (!hash || !hash.includes("access_token")) {
+            statusMessage.textContent = "No verification token found. Please check your email link.";
+            statusMessage.style.color = "#d32f2f";
+            return;
+          }
+
+          // Get the session from the URL
+          const {
+            data: { session },
+            error,
+          } = await supabase.auth.getSession();
+
+          if (error || !session) {
+            statusMessage.textContent = "Verification failed. Please try again or resend the email.";
+            statusMessage.style.color = "#d32f2f";
+            return;
+          }
+
+          // Update session with the new token
+          const { data, error: sessionError } = await supabase.auth.setSession({
+            access_token: session.access_token,
+            refresh_token: session.refresh_token,
+          });
+
+          if (sessionError) {
+            throw sessionError;
+          }
+
+          statusMessage.textContent = "Email verified successfully! Redirecting to login...";
+          statusMessage.style.color = "#2e7d32";
+
+          window.setTimeout(() => {
+            window.location.href = "login.html?verified=1";
+          }, 2000);
+        } catch (error) {
+          console.error("Verification error:", error);
+          statusMessage.textContent = "Verification failed: " + (error.message || "Unknown error");
+          statusMessage.style.color = "#d32f2f";
+        }
+      }
+
+      verifyEmail();
+    </script>
+  </body>
+</html>

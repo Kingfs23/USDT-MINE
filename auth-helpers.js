@@ -1,6 +1,49 @@
 import { appSettings, isSupabaseConfigured } from "./supabase-config.js";
 import { supabase } from "./supabase-client.js";
 
+export const CONVERSION_RATE = 1500;
+
+export const MINER_PLANS = [
+  {
+    level: 1,
+    name: "Level 1 Starter Miner",
+    cost: 10,
+    totalReturn: 50,
+    description: "Entry miner with stable 30-day daily earnings for new users.",
+  },
+  {
+    level: 2,
+    name: "Level 2 Growth Miner",
+    cost: 25,
+    totalReturn: 150,
+    description: "Mid-tier miner with higher daily mining rewards over 30 days.",
+  },
+  {
+    level: 3,
+    name: "Level 3 Turbo Miner",
+    cost: 50,
+    totalReturn: 350,
+    description: "Fast-yield miner designed for stronger compounding returns.",
+  },
+  {
+    level: 4,
+    name: "Level 4 Elite Miner",
+    cost: 100,
+    totalReturn: 500,
+    description: "Premium miner with large daily credits and bigger 30-day output.",
+  },
+  {
+    level: 5,
+    name: "Level 5 Titan Miner",
+    cost: 200,
+    totalReturn: 1000,
+    description: "Top-tier machine with the strongest daily earnings target in the catalog.",
+  },
+].map((plan) => ({
+  ...plan,
+  dailyProfit: Number((plan.totalReturn / 30).toFixed(4)),
+}));
+
 export function normalizeUsername(username) {
   return username.trim().toLowerCase();
 }
@@ -122,6 +165,26 @@ export async function createTransaction(userId, payload) {
   }
 }
 
+export async function purchaseMinerPlan(level) {
+  const { error } = await supabase.rpc("purchase_miner_plan", {
+    p_level: level,
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
+export async function accrueMiningProfits() {
+  const { data, error } = await supabase.rpc("accrue_mining_profits");
+
+  if (error) {
+    throw error;
+  }
+
+  return Number(data || 0);
+}
+
 export async function getTransactions(userId) {
   const { data, error } = await supabase
     .from("transactions")
@@ -129,6 +192,35 @@ export async function getTransactions(userId) {
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(12);
+
+  if (error) {
+    throw error;
+  }
+
+  return data ?? [];
+}
+
+export async function getMinerPurchases(userId) {
+  const { data, error } = await supabase
+    .from("miner_purchases")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw error;
+  }
+
+  return data ?? [];
+}
+
+export async function getMiningEarnings(userId) {
+  const { data, error } = await supabase
+    .from("mining_earnings")
+    .select("*")
+    .eq("user_id", userId)
+    .order("earning_date", { ascending: false })
+    .limit(40);
 
   if (error) {
     throw error;
@@ -172,6 +264,22 @@ export function formatMoney(amount) {
     currency: appSettings.currency,
     minimumFractionDigits: 2,
   }).format(Number(amount || 0));
+}
+
+export function formatNaira(amount) {
+  return new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 2,
+  }).format(Number(amount || 0));
+}
+
+export function toNaira(amount) {
+  return Number(amount || 0) * CONVERSION_RATE;
+}
+
+export function getMinerPlan(level) {
+  return MINER_PLANS.find((plan) => plan.level === Number(level));
 }
 
 export function friendlyAuthError(error) {

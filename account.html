@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account | USDT Mine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-screen">
+    <div class="page-shell app-page-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <header class="topbar container app-topbar">
+        <a class="brand" href="index.html" aria-label="USDT Mine home">
+          <img src="logo-mark.svg" alt="" />
+          <span class="brand-text">
+            <strong>USDT</strong>
+            <span>MINE</span>
+          </span>
+        </a>
+
+        <nav class="app-links" aria-label="Dashboard links">
+          <a href="index.html">Home</a>
+          <a class="is-active" href="account.html">Account</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-outline btn-small" id="logout-button" type="button">Logout</button>
+        </div>
+      </header>
+
+      <main class="container app-main dashboard-main">
+        <section class="verify-gate card-panel hidden" id="verify-gate">
+          <div class="panel-heading">
+            <h2>Verify your email first</h2>
+            <p>Your personal account is created, but email verification is still required.</p>
+          </div>
+          <div class="verify-actions">
+            <button class="btn btn-primary" id="resend-verification" type="button">Resend verification email</button>
+            <button class="btn btn-outline" id="gate-logout" type="button">Logout</button>
+          </div>
+          <p class="status-banner" id="verify-status" aria-live="polite"></p>
+        </section>
+
+        <section class="dashboard-layout hidden" id="dashboard">
+          <div class="stat-grid">
+            <article class="card-panel stat-card">
+              <span class="stat-label">Account Balance</span>
+              <strong class="stat-value" id="balance-value">$0.00</strong>
+            </article>
+            <article class="card-panel stat-card">
+              <span class="stat-label">Pending Deposits</span>
+              <strong class="stat-value" id="pending-deposits">$0.00</strong>
+            </article>
+            <article class="card-panel stat-card">
+              <span class="stat-label">Pending Withdrawals</span>
+              <strong class="stat-value" id="pending-withdrawals">$0.00</strong>
+            </article>
+            <article class="card-panel stat-card">
+              <span class="stat-label">Account Status</span>
+              <strong class="stat-value stat-value-small" id="account-status">Active</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="card-panel profile-card">
+              <div class="panel-heading">
+                <h2>Personal Account</h2>
+                <p>Your signup information is used to build this page.</p>
+              </div>
+
+              <dl class="profile-list">
+                <div>
+                  <dt>Name</dt>
+                  <dd id="profile-name">-</dd>
+                </div>
+                <div>
+                  <dt>Username</dt>
+                  <dd id="profile-username">-</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd id="profile-email">-</dd>
+                </div>
+                <div>
+                  <dt>Verification</dt>
+                  <dd id="profile-verification">Verified</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="card-panel action-card">
+              <div class="panel-heading">
+                <h2>Deposit</h2>
+                <p>Create a deposit request for your account wallet.</p>
+              </div>
+
+              <form class="form-stack" id="deposit-form">
+                <label class="field">
+                  <span>Amount</span>
+                  <input id="deposit-amount" type="number" min="1" step="0.01" placeholder="100.00" required />
+                </label>
+
+                <label class="field">
+                  <span>Network</span>
+                  <select id="deposit-network" required>
+                    <option value="USDT TRC20">USDT TRC20</option>
+                    <option value="USDT ERC20">USDT ERC20</option>
+                    <option value="USDT BEP20">USDT BEP20</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>Note</span>
+                  <textarea id="deposit-note" rows="3" placeholder="Reference or wallet note"></textarea>
+                </label>
+
+                <button class="btn btn-primary form-submit" type="submit">Submit Deposit</button>
+              </form>
+            </section>
+
+            <section class="card-panel action-card">
+              <div class="panel-heading">
+                <h2>Withdrawal</h2>
+                <p>Request a withdrawal from your available account balance.</p>
+              </div>
+
+              <form class="form-stack" id="withdraw-form">
+                <label class="field">
+                  <span>Amount</span>
+                  <input id="withdraw-amount" type="number" min="1" step="0.01" placeholder="50.00" required />
+                </label>
+
+                <label class="field">
+                  <span>Wallet address</span>
+                  <input id="wallet-address" type="text" placeholder="Recipient wallet address" required />
+                </label>
+
+                <label class="field">
+                  <span>Network</span>
+                  <select id="withdraw-network" required>
+                    <option value="USDT TRC20">USDT TRC20</option>
+                    <option value="USDT ERC20">USDT ERC20</option>
+                    <option value="USDT BEP20">USDT BEP20</option>
+                  </select>
+                </label>
+
+                <button class="btn btn-primary form-submit" type="submit">Request Withdrawal</button>
+              </form>
+            </section>
+
+            <section class="card-panel transactions-card">
+              <div class="panel-heading">
+                <h2>Recent Activity</h2>
+                <p>Deposit and withdrawal requests appear here.</p>
+              </div>
+
+              <p class="status-banner" id="account-status-banner" aria-live="polite"></p>
+
+              <div class="transactions-list" id="transactions-list"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="account.js"></script>
+  </body>
+</html>

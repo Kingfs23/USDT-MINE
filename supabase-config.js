@@ -1,5 +1,5 @@
 export const supabaseConfig = {
-  url: "https://vupfwbseswvdaiiyizpf.supabase.co/rest/v1/",
+  url: "https://vupfwbseswvdaiiyizpf.supabase.co",
   anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1cGZ3YnNlc3d2ZGFpaXlpenBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMzg4OTksImV4cCI6MjA5MjcxNDg5OX0.LQDfBbaU9cJI1e9HZZ9Nn0zNFQX4J9ch3FB6fnl2xmg",
 };
 

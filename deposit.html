@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Deposit | USDT Mine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-screen">
+    <div class="page-shell app-page-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <header class="topbar container app-topbar">
+        <a class="brand" href="index.html" aria-label="USDT Mine home">
+          <img src="logo-mark.svg" alt="" />
+          <span class="brand-text">
+            <strong>USDT</strong>
+            <span>MINE</span>
+          </span>
+        </a>
+
+        <nav class="app-links" aria-label="Deposit links">
+          <a href="wallet.html">History</a>
+          <a class="is-active" href="deposit.html">Bank Deposit</a>
+        </nav>
+      </header>
+
+      <main class="container app-main dashboard-main">
+        <section class="wallet-shell centered-action-shell">
+          <section class="card-panel action-card wallet-action-card">
+            <div class="panel-heading">
+              <h2>Bank Transfer Deposit</h2>
+            </div>
+
+            <div class="plan-metrics compact">
+              <div>
+                <dt>Amount</dt>
+                <dd id="deposit-usd">$0.00</dd>
+              </div>
+              <div>
+                <dt>Naira Equivalent</dt>
+                <dd id="deposit-ngn">NGN 0.00</dd>
+              </div>
+              <div>
+                <dt>Conversion Rate</dt>
+                <dd id="deposit-rate">$1 = NGN 1,367</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd>Pending approval</dd>
+              </div>
+            </div>
+
+            <form class="form-stack" id="bank-deposit-form">
+              <label class="field">
+                <span>Deposit Amount (USD)</span>
+                <input id="deposit-amount" type="number" min="1" step="0.01" placeholder="100.00" required />
+              </label>
+
+              <label class="field">
+                <span>Bank Name</span>
+                <input id="sender-bank-name" type="text" placeholder="Bank you transferred from" required />
+              </label>
+
+              <label class="field">
+                <span>Account Number</span>
+                <input id="sender-account-number" type="text" inputmode="numeric" placeholder="Account number used for transfer" required />
+              </label>
+
+              <label class="field">
+                <span>Account Name</span>
+                <input id="sender-account-name" type="text" placeholder="Name on the sending account" required />
+              </label>
+
+          
+              <button class="btn btn-primary form-submit" type="submit">Continue to Transfer</button>
+            </form>
+
+            <p class="status-banner" id="deposit-status" aria-live="polite"></p>
+          </section>
+
+          <section class="card-panel transactions-card wallet-history-card">
+            <div class="panel-heading">
+              <h2>Deposit History</h2>
+            </div>
+            <div class="transactions-list" id="deposit-history-list"></div>
+          </section>
+        </section>
+      </main>
+
+      <nav class="bottom-app-nav" aria-label="App navigation">
+        <a href="account.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Dashboard</span>
+        </a>
+        <a href="miners.html">
+          <img src="icon-nav-miners.svg" alt="" />
+          <span>Mining</span>
+        </a>
+        <a href="my-miners.html">
+          <img src="icon-nav-myminers.svg" alt="" />
+          <span>Miners</span>
+        </a>
+        <a class="is-active" href="deposit.html">
+          <img src="icon-nav-deposit.svg" alt="" />
+          <span>Deposit</span>
+        </a>
+        <a href="withdrawal.html">
+          <img src="icon-nav-withdraw.svg" alt="" />
+          <span>Withdraw</span>
+        </a>
+        <a href="wallet.html">
+          <img src="icon-nav-wallet.svg" alt="" />
+          <span>Wallet</span>
+        </a>
+        <a href="referral.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Referrals</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="deposit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wallet History | USDT Mine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-screen">
+    <div class="page-shell app-page-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <header class="topbar container app-topbar">
+        <a class="brand" href="index.html" aria-label="USDT Mine home">
+          <img src="logo-mark.svg" alt="" />
+          <span class="brand-text">
+            <strong>USDT</strong>
+            <span>MINE</span>
+          </span>
+        </a>
+
+        <nav class="app-links" aria-label="Wallet links">
+          <a href="account.html">Account</a>
+          <a class="is-active" href="wallet.html">History</a>
+        </nav>
+      </header>
+
+      <main class="container app-main dashboard-main">
+        <section class="wallet-shell">
+          <section class="wallet-grid">
+            <section class="card-panel action-card wallet-action-card">
+              <div class="panel-heading">
+                <h2>Deposit</h2>
+              </div>
+              <a class="btn btn-primary form-submit" href="deposit.html">Deposit</a>
+            </section>
+
+            <section class="card-panel action-card wallet-action-card">
+              <div class="panel-heading">
+                <h2>Withdrawal</h2>
+              </div>
+              <a class="btn btn-outline form-submit" href="withdrawal.html">Withdraw</a>
+            </section>
+          </section>
+
+          <section class="card-panel transactions-card wallet-history-card notification-card">
+            <div class="panel-heading notification-heading">
+              <div>
+                <span class="live-chip">Wallet feed</span>
+                <h2>Notifications</h2>
+              </div>
+              <span class="notification-state" id="wallet-status" aria-live="polite"></span>
+            </div>
+
+            <div class="wallet-history-meta">
+              <span>Conversion rate</span>
+              <strong id="conversion-rate-text">$1 = NGN 1,367</strong>
+            </div>
+
+            <div class="transactions-list" id="wallet-history-list"></div>
+          </section>
+        </section>
+      </main>
+
+      <nav class="bottom-app-nav" aria-label="App navigation">
+        <a href="account.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Dashboard</span>
+        </a>
+        <a href="miners.html">
+          <img src="icon-nav-miners.svg" alt="" />
+          <span>Mining</span>
+        </a>
+        <a href="my-miners.html">
+          <img src="icon-nav-myminers.svg" alt="" />
+          <span>Miners</span>
+        </a>
+        <a href="deposit.html">
+          <img src="icon-nav-deposit.svg" alt="" />
+          <span>Deposit</span>
+        </a>
+        <a href="withdrawal.html">
+          <img src="icon-nav-withdraw.svg" alt="" />
+          <span>Withdraw</span>
+        </a>
+        <a class="is-active" href="wallet.html">
+          <img src="icon-nav-wallet.svg" alt="" />
+          <span>Wallet</span>
+        </a>
+        <a href="referral.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Referrals</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="wallet.js"></script>
+  </body>
+</html>

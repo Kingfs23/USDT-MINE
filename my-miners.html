@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Miners | USDT Mine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-screen">
+    <div class="page-shell app-page-shell">
+      <div class="ambient-grid" aria-hidden="true"></div>
+      <header class="topbar container app-topbar">
+        <a class="brand" href="index.html" aria-label="USDT Mine home">
+          <img src="logo-mark.svg" alt="" />
+          <span class="brand-text">
+            <strong>USDT</strong>
+            <span>MINE</span>
+          </span>
+        </a>
+
+        <nav class="app-links" aria-label="Mining links">
+          <a href="miners.html">Mining</a>
+          <a class="is-active" href="my-miners.html">My Miners</a>
+        </nav>
+      </header>
+
+      <main class="container app-main dashboard-main">
+        <section class="card-panel earnings-history-card notification-card">
+          <div class="panel-heading notification-heading">
+            <div>
+              <span class="live-chip">Mining feed</span>
+              <h2>Notifications</h2>
+            </div>
+            <span class="notification-state" id="my-miners-status" aria-live="polite"></span>
+          </div>
+
+          <div class="earnings-summary-grid">
+            <article class="mini-stat">
+              <span>Today</span>
+              <strong id="today-earnings">$0.00</strong>
+            </article>
+            <article class="mini-stat">
+              <span>Total Mining Earned</span>
+              <strong id="total-earnings">$0.00</strong>
+            </article>
+            <article class="mini-stat">
+              <span>Active Machines</span>
+              <strong id="active-machines">0</strong>
+            </article>
+          </div>
+
+          <div class="transactions-list" id="earnings-history-list"></div>
+        </section>
+
+        <section class="my-miners-grid" id="my-miners-grid"></section>
+      </main>
+
+      <nav class="bottom-app-nav" aria-label="App navigation">
+        <a href="account.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Dashboard</span>
+        </a>
+        <a href="miners.html">
+          <img src="icon-nav-miners.svg" alt="" />
+          <span>Mining</span>
+        </a>
+        <a class="is-active" href="my-miners.html">
+          <img src="icon-nav-myminers.svg" alt="" />
+          <span>Miners</span>
+        </a>
+        <a href="deposit.html">
+          <img src="icon-nav-deposit.svg" alt="" />
+          <span>Deposit</span>
+        </a>
+        <a href="withdrawal.html">
+          <img src="icon-nav-withdraw.svg" alt="" />
+          <span>Withdraw</span>
+        </a>
+        <a href="wallet.html">
+          <img src="icon-nav-wallet.svg" alt="" />
+          <span>Wallet</span>
+        </a>
+        <a href="referral.html">
+          <img src="icon-nav-account.svg" alt="" />
+          <span>Referrals</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="my-miners.js"></script>
+  </body>
+</html>
